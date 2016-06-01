@@ -1,0 +1,53 @@
+---
+# Ruby
+
+- name: rbenv | update rbenv repo
+  git: repo=https://github.com/rbenv/rbenv.git dest=~/.rbenv
+  
+- name: rbenv | check ruby-build installed
+  command: test -x ~/.rbenv/plugins/ruby-build
+  register: rbuild_present
+  ignore_errors: yes
+
+- name: rbenv | install rbenv-build
+  git: repo=https://github.com/rbenv/ruby-build.git dest=~/.rbenv/plugins/ruby-build
+  when: rbuild_present|failed
+
+- name: rbenv | setup PATH for rbenv
+  lineinfile: dest=~/.bashrc line='export PATH="$HOME/.rbenv/bin:$PATH"'
+  when: rbuild_present|failed
+
+- name: rbenv | setup rbenv init
+  lineinfile: dest=~/.bashrc line='eval "$(rbenv init -)"'
+  when: rbuild_present|failed
+
+- name: rbenv | check ruby {{ ruby.version }} installed
+  command: sh -c "~/.rbenv/bin/rbenv versions | grep {{ ruby.version }}"
+  register: ruby_installed
+  ignore_errors: yes
+
+- name: rbenv | install ruby
+  command: sh -c "~/.rbenv/bin/rbenv install {{ ruby.version }}"
+  when: ruby_installed|failed
+
+- name: rbenv | setup ruby version
+  command: sh -c "~/.rbenv/bin/rbenv global {{ ruby.version }}"
+  when: ruby_installed|failed
+
+- name: rbenv | setup .gemrc file
+  blockinfile:
+    dest: ~/.gemrc
+    create: yes
+    block: |
+      ---
+      gem: --no-ri --no-document
+  when: ruby_installed|failed
+
+- name: rbenv | updating 'gem'
+  command: sh -c "~/.rbenv/shims/gem update --system"
+  when: ruby_installed|failed
+
+- name: rbenv | installing bundler
+  command: sh -c "~/.rbenv/shims/gem install bundler"
+  when: ruby_installed|failed
+

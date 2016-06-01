@@ -1,0 +1,37 @@
+---
+# Postgresql
+
+- name: postgresql | adding pg apt-repository key
+  become: yes
+  become_user: root
+  apt_key: id=ACCC4CF8 url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
+
+- name: postgresql | adding pg apt-repository
+  become: yes
+  become_user: root
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main'
+
+- name: postgresql | installing postgresql and some dev dependencies
+  become: yes
+  become_user: root
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - postgresql-{{ postgresql.version }}
+    - libpq-dev       # for pg ruby gem
+    - python-psycopg2 # for ansible modules
+
+- name: postgresql | changing postgresql config
+  become: yes
+  become_user: root
+  lineinfile: dest=/etc/postgresql/{{ postgresql.version }}/main/pg_hba.conf regexp='all(\s)+peer' line='local all all md5'
+
+- name: postgresql | restart postgresql service
+  become: yes
+  become_user: root
+  service: name=postgresql state=restarted
+
+- name: postgresql | adding new postgresql user with CREATEDB role
+  become: yes
+  become_user: postgres
+  postgresql_user: name={{ postgresql.pg_username }} password={{ postgresql.pg_password }} role_attr_flags=CREATEDB
+

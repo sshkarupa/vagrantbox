@@ -1,0 +1,12 @@
+---
+# redis
+
+- name: redis | add redis apt-repository
+  become: yes
+  become_user: root
+  apt_repository: repo='ppa:chris-lea/redis-server'
+
+- name: redis | installing redis
+  become: yes
+  become_user: root
+  apt: name=redis-server update_cache=yes

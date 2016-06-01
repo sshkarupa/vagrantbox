@@ -1,0 +1,12 @@
+---
+# PhantomJs
+
+- name: PhantomJS | downloading PhantomJS
+  get_url:
+    url: https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-{{ phantomjs.version }}.tar.bz2
+    dest: "/tmp/phantomjs.tar.bz2"
+
+- name: PhantomJS | installing PhantomJS
+  become: yes
+  become_user: root
+  shell: "cd /tmp && tar xvjf /tmp/phantomjs.tar.bz2 -C /usr/local/bin/ --overwrite --wildcards '**/bin/phantomjs' --strip-components=2"

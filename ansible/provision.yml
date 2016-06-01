@@ -1,0 +1,49 @@
+---
+- hosts: all
+  vars:
+    hostname: "dev"
+    ruby:
+      version: 2.3.1
+    git:
+      username: Sergey Shkarupa
+      email: s.shkarupa@gmail.com
+    phantomjs:
+      version: 2.1.1-linux-x86_64
+      install: false
+    postgresql:
+      version: 9.5
+      pg_username: rails
+      pg_password: rails
+      install: false
+    redis:
+      install: false
+    ohmyzsh:
+      install: false
+    imagemagick:
+      install: false
+    heroku:
+      install: false
+  tasks:
+    - include: tasks/system.yml
+    - include: tasks/git_config.yml
+    - include: tasks/ruby.yml
+
+    - include: tasks/ohmyzsh.yml
+      when: ohmyzsh.install
+
+    - include: tasks/postgresql.yml
+      when: postgresql.install
+
+    - include: tasks/redis.yml
+      when: redis.install
+
+    - include: tasks/phantomjs.yml
+      when: phantomjs.install
+
+    - include: tasks/imagemagick.yml
+      when: imagemagick.install
+
+    - include: tasks/heroku.yml
+      when: heroku.install
+
+  handlers: # here will be some handlers

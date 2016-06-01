@@ -1,0 +1,42 @@
+---
+# system
+
+- name: system | update repository
+  become: yes
+  become_user: root
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: system | install some dependencies for ruby
+  become: yes
+  become_user: root
+  apt: name={{ item }} state=latest
+  with_items:
+    - git
+    - curl
+    - zlib1g-dev
+    - build-essential
+    - libssl-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - libxml2-dev
+    - libxslt1-dev
+    - libcurl4-openssl-dev
+    - python-software-properties
+    - libffi-dev
+
+- name: system | install various packages
+  become: yes
+  become_user: root
+  apt: name={{ item }} state=latest
+  with_items:
+    - nodejs
+    - npm
+    - tree
+    - unzip
+
+- name: system | set hostname
+  become: yes
+  become_user: root
+  hostname: name={{ hostname }}
