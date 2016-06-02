@@ -1,10 +1,10 @@
 ## Introduction
 
-vagrantbox builds an environment in your machine where you can install Ruby on Rails application without making any changes to your machine.
+Vagrantbox builds an environment on your machine ready for installing Ruby on Rails application without any additional changes to your machine.
 
 ### Host machine vs Guest machine
 
-In this README "host machine" will be used to refer to the native machine on which vagrant is installed. Once you ssh into the vagrant machine then that machine will be referred to as "guest machine"
+In this README "host machine" will be used to refer to the native machine on which vagrant is installed. Once you ssh into the vagrant machine that machine will be referred to as "guest machine"
 
 ## Using vagrantbox
 
@@ -20,7 +20,7 @@ Please install following tools
 * [Vagrant](http://www.vagrantup.com/downloads.html)
 * [Ansible](http://docs.ansible.com/intro_installation.html)
 
-Note: In ubuntu I'm using "nfs: true" option in Vagrantfile to increase performance with synced folders. Before using synced folders backed by NFS, the host machine must have `nfsd` installed, the NFS server daemon. This comes pre-installed on Mac OS X, and is typically a simple package install on Linux. If you have a problem with this see here: [Problems with nfs shares on Debian](http://jb-blog.readthedocs.io/en/latest/posts/0021-vagrant-nfs-problems.html) 
+Note: In ubuntu I'm using "nfs: true" option in Vagrantfile to increase performance of synced folders. Before using synced folders backed by NFS, the host machine must have `nfsd` installed, the NFS server daemon. This comes pre-installed on Mac OS X, and is typically a simple package install on Linux. If you have a problem with this, take a look here: [Problems with nfs shares on Debian](http://jb-blog.readthedocs.io/en/latest/posts/0021-vagrant-nfs-problems.html)
 
 #### Setting up the guest machine using vagrant
 
@@ -34,9 +34,9 @@ cp -rv vagrantbox/* .
 rm -rf vagrantbox
 ```
 
-* Open `ansible/provision.yml` and change the ruby version you want, "username" and "email" value to have your name and your email address. Also you can change `install` options in `true` or `false` for some tasks.
+* Open `ansible/provision.yml` and change the ruby version to the one you want, "username" and "email" value to your name and your email address. Also you can switch `install` options as `true` or `false` for some tasks.
 
-* After making the changes mentioned above execute following command. Please note that depending on your download speed it could take upto 15 mintues for the guest machine to be built. During the installation process you will see lots of outputs because the script has been set to super verbose mode to show all the data it can.
+* After making the above mentioned changes execute the following command. Please note that it could take up to 15 minutes for the guest machine to be built, depending on your download speed. During the installation process you will see lots of outputs because the script has been set to super verbose mode to show all the data it can.
 
 ```
 vagrant up
@@ -49,7 +49,7 @@ Execute following commands to get into the guest machine.
 ```
 vagrant ssh
 ```
-Once you are inside the guest machine you will notice that the command prompt looks like this
+Once you are inside the guest machine the command prompt will change to look like this:
 
 ```
 vagrant ~
@@ -58,7 +58,7 @@ vagrant ~
 Notice that the prompt starts with `vagrant`. It means that you are in the guest machine.
 
 In the host machine the directory that had `Vagrantfile` is mapped to
-`/vagrant` in the guest machine.
+`/vagrant` on the guest machine.
 
 ```
 cd /vagrant
@@ -93,9 +93,9 @@ Now open browser and visit `http://localhost:3000`.
 
 ### Verify that PostgreSQL is working
 
-To test if postgresql is properly working execute following commands in the guest machine.
+To test if postgresql is properly working, execute following commands on the guest machine.
 
-Note that password is blank for user postgres.
+Note that password is blank for the user 'postgres'.
 
 ```
 psql -h localhost -U postgres --password
@@ -103,9 +103,8 @@ enter password:
 SELECT table_name FROM information_schema.tables WHERE table_schema='public';
 ```
 
-You should see result with zero row. It means postgres is wroking fine. Now to exit out of `psql` type `\q` and hit enter.
+You should see the result with zero row. It means postgres is wroking fine. Now to exit out of `psql` type `\q` and hit enter.
 
 ```
 postgres=# \q
 ```
-
