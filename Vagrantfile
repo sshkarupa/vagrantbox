@@ -18,19 +18,11 @@ Vagrant.configure(2) do |config|
 
   if is_windows
     config.vm.synced_folder "../", "/vagrant"
-    # https://github.com/mitchellh/vagrant/issues/6793
-    config.vm.provision :shell, inline: <<-SCRIPT
-      GALAXY=/usr/local/bin/ansible-galaxy
-      echo '#!/usr/bin/env bash
-      /usr/bin/ansible-galaxy "$@"
-      exit 0
-      ' | sudo tee $GALAXY
-      sudo chmod 0755 $GALAXY
-    SCRIPT
-    config.vm.provision 'ansible_local' do |ansible|
-      ansible.playbook = "ansible/provision.yml"
-      ansible.verbose = 'vvv'
+    config.vm.provision "fix-no-tty", type: "shell" do |s|
+      s.privileged = false
+      s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
     end
+    config.vm.provision :shell, path: "ansible/local.sh"
   else
     config.vm.synced_folder "./", "/vagrant", type: 'nfs'
     config.vm.provision 'ansible' do |ansible|
