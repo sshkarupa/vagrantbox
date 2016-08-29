@@ -49,7 +49,7 @@ ZSH_THEME="bureau"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(ruby rails bundler)
 
 # User configuration
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
@@ -90,18 +90,6 @@ export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # Add npm to PATH for scripting
 export PATH="/usr/local/share/npm/bin:$PATH"
 
-# alias for git
-alias gca='git commit -a'
-alias gcam='git commit -a -m '
-alias gl='git log --pretty=format:"%an, %ar, %h: %s"'
-alias gd='git diff'
-alias gb='git branch'
-alias gco='git checkout'
-alias gp='git pull --rebase'
-alias gpp='git pull --rebase git push'
-alias gph='git push'
-alias gm='git merge'
-
 #alias for rails
 alias rc='rails console'
 alias rg='rails generate'
@@ -109,14 +97,3 @@ alias rs='rails s'
 alias r='rails'
 alias be='bundle exec'
 alias bes='bundle exec spring'
-
-#alias for private_pub
-alias pp_start='rackup private_pub.ru -s thin -E production'
-
-alias lgt='gnome-session-quit'
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-# Change to the vagrant folder on connect
-cd /vagrant

@@ -30,8 +30,7 @@ Let's say that project directory is `myproject`.
 ```
 cd myproject
 git clone https://github.com/sshkarupa/vagrantbox.git
-cp -rv vagrantbox/* .
-rm -rf vagrantbox
+rm vagrantbox/README.md && cp -rv vagrantbox/* . && rm -rf vagrantbox
 ```
 
 * Open `ansible/provision.yml` and change the ruby version to the one you want, "username" and "email" value to your name and your email address. Also you can switch `install` options as `true` or `false` for some tasks.
@@ -108,3 +107,9 @@ You should see the result with zero row. It means postgres is wroking fine. Now 
 ```
 postgres=# \q
 ```
+### Usage better_errors on Vagrant
+
+1. Install vagrant-host-path: just run `vagrant plugin install vagrant-host-path`
+2. Copy `better_config.rb` into `config/initializers/`directory of your project 
+3. If you need help with url handle to run sublimetext or vim see
+   [here](https://github.com/sshkarupa/url-handlers) 

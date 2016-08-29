@@ -3,7 +3,7 @@
 
 - name: rbenv | update rbenv repo
   git: repo=https://github.com/rbenv/rbenv.git dest=~/.rbenv
-  
+
 - name: rbenv | check ruby-build installed
   command: test -x ~/.rbenv/plugins/ruby-build
   register: rbuild_present

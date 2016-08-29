@@ -4,6 +4,9 @@
     hostname: "dev"
     ruby:
       version: 2.3.1
+    rails:
+      version: 5.0.0.1
+      install: false
     git:
       username: Sergey Shkarupa
       email: s.shkarupa@gmail.com
@@ -14,6 +17,11 @@
       version: 9.5
       pg_username: rails
       pg_password: rails
+      install: false
+    mysql:
+      #version:
+      mysql_username: root
+      mysql_rassword: root
       install: false
     redis:
       install: false
@@ -28,11 +36,17 @@
     - include: tasks/git_config.yml
     - include: tasks/ruby.yml
 
+    - include: tasks/rails.yml
+      when: rails.install
+
     - include: tasks/ohmyzsh.yml
       when: ohmyzsh.install
 
     - include: tasks/postgresql.yml
       when: postgresql.install
+
+    - include: tasks/mysql.yml
+      when: mysql.install
 
     - include: tasks/redis.yml
       when: redis.install
