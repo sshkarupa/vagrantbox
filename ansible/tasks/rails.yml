@@ -2,17 +2,7 @@
 # rails
 
 - name: rails | install
-  become: yes
-  become_user: vagrant
   command: sh -c "~/.rbenv/shims/gem install rails -v {{ rails.version }}"
-  #gem:
-    #name: rails
-    #version: "{{ rails.version }}"
-    #state: present
-    #user_install: no
-    #executable: "~/.rbenv/shims/gem"
 
 - name: rails | rbenv rehash
-  become: yes
-  become_user: vagrant
   command: sh -c "~/.rbenv/bin/rbenv rehash"

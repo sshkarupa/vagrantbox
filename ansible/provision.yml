@@ -1,31 +1,25 @@
 ---
 - hosts: all
   vars:
-    hostname: "dev"
+    hostname: 'dev'
     ruby:
-      version: 2.3.1
+      version: 2.4.0
     rails:
-      version: 5.0.0.1
+      version: 5.0.1
       install: false
-    git:
-      username: Sergey Shkarupa
-      email: s.shkarupa@gmail.com
     phantomjs:
       version: 2.1.1-linux-x86_64
       install: false
     postgresql:
       version: 9.5
-      pg_username: rails
-      pg_password: rails
+      username: vagrant
+      password: vagrant
       install: false
     mysql:
-      #version:
-      mysql_username: root
-      mysql_rassword: root
+      username: vagrant
+      rassword: vagrant
       install: false
     redis:
-      install: false
-    ohmyzsh:
       install: false
     imagemagick:
       install: false
@@ -33,14 +27,10 @@
       install: false
   tasks:
     - include: tasks/system.yml
-    - include: tasks/git_config.yml
     - include: tasks/ruby.yml
 
     - include: tasks/rails.yml
       when: rails.install
-
-    - include: tasks/ohmyzsh.yml
-      when: ohmyzsh.install
 
     - include: tasks/postgresql.yml
       when: postgresql.install

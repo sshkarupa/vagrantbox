@@ -33,5 +33,4 @@
 - name: postgresql | adding new postgresql user with CREATEDB role
   become: yes
   become_user: postgres
-  postgresql_user: name={{ postgresql.pg_username }} password={{ postgresql.pg_password }} role_attr_flags=CREATEDB
-
+  postgresql_user: name={{ postgresql.username }} password={{ postgresql.password }} role_attr_flags=CREATEDB

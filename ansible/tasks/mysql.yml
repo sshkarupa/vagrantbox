@@ -15,8 +15,8 @@
   become: yes
   become_user: root
   mysql_user: >
-    name=root
-    password=root
+    name={{ mysql.username }}
+    password={{ mysql.password }}
     priv=*.*:ALL
     state=present
     host=localhost
