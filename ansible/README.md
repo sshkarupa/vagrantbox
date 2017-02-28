@@ -12,9 +12,9 @@ will be referred to as "guest machine"
 
 ## Using vagrantbox
 
-* 1. [Installing Dependencies](#installing-dependencies)
-* 2. [Setting up machine using vagrant](#setting-up-the-guest-machine-using-vagrant)
-* 3. [Using vagrant](#using-guest-machine)
+1. [Installing Dependencies](#installing-dependencies)
+2. [Setting up machine using vagrant](#setting-up-the-guest-machine-using-vagrant)
+3. [Using vagrant](#using-guest-machine)
 
 ### Installing Dependencies
 
@@ -24,6 +24,13 @@ Please install following tools
 * [Vagrant](http://www.vagrantup.com/downloads.html)
 * [Ansible](http://docs.ansible.com/intro_installation.html)
 
+  Note: In ubuntu I'm using `nfs: true` option in Vagrantfile to increase
+  performance of synced folders. Before using synced folders backed by NFS, the
+  host machine must have `nfsd` installed, the NFS server daemon. This comes
+  pre-installed on Mac OS X, and is typically a simple package install on Linux.
+  If you have a problem with this, take a look here: [Problems with nfs shares
+  on
+  Debian](http://jb-blog.readthedocs.io/en/latest/posts/0021-vagrant-nfs-problems.html)
 
 #### Setting up the guest machine using vagrant
 
@@ -38,9 +45,8 @@ $ rm -rf vagrantbox
 $ echo .vagrant >> .gitignore
 ```
 
-* Open `ansible/provision.yml` and change the ruby version to the one you want,
-"username" and "email" value to your name and your email address. Also you can
-switch `install` options as `true` or `false` for some tasks.
+* Open `ansible/provision.yml` and change the ruby version to the one you want.
+Also you can switch `install` options as `true` or `false` for some tasks.
 
 * After making the above mentioned changes execute the following command. Please
 note that it could take up to 15 minutes for the guest machine to be built,

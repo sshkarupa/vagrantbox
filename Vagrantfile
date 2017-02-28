@@ -9,6 +9,13 @@ Vagrant.configure(2) do |config|
     vb.memory = 2024
   end
 
+  config.vm.synced_folder(
+    './',
+    '/home/vagrant/',
+    nfs: true,
+    mount_options: ['nolock', 'vers=3', 'udp', 'noatime', 'actimeo=1']
+  )
+
   config.vm.provision 'ansible' do |ansible|
     ansible.playbook = 'ansible/provision.yml'
     ansible.verbose = 'vvv'
